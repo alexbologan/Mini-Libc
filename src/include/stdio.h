@@ -6,7 +6,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+int puts(const char *str);
 /* TODO: Add puts() declaration. */
 
 #ifdef __cplusplus

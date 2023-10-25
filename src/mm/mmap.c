@@ -6,18 +6,43 @@
 
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 {
-	/* TODO: Implement mmap(). */
-	return MAP_FAILED;
+	if (fd != -1) {
+        errno = 9;  // Set errno to indicate a bad file descriptor
+        return MAP_FAILED;
+    }
+
+	void *ret = (void *)syscall(__NR_mmap, addr, length, prot, flags, fd, offset);
+
+	if (ret == (void *)-22) {
+        errno = 22;  // Set errno to indicate an invalid argument
+        return MAP_FAILED;
+    }
+
+	if (ret == MAP_FAILED) {
+        errno = -errno;  // Set errno on failure
+    }
+
+    return ret;
 }
 
 void *mremap(void *old_address, size_t old_size, size_t new_size, int flags)
 {
-	/* TODO: Implement mremap(). */
-	return MAP_FAILED;
+	void *ret = (void *)syscall(__NR_mremap, old_address, old_size, new_size, flags);
+
+	if (ret == MAP_FAILED) {
+        errno = -errno;  // Set errno on failure
+    }
+
+    return ret;
 }
 
 int munmap(void *addr, size_t length)
 {
-	/* TODO: Implement munmap(). */
-	return -1;
+	int ret = syscall(__NR_munmap, addr, length);
+
+	if (ret < 0) {
+		errno = -ret;
+		return -1;
+	}
+	return ret;
 }
