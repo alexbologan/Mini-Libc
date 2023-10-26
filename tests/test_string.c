@@ -2,8 +2,8 @@
 
 #include <string.h>
 
-#include "./graded_test.h"
 
+#include "./graded_test.h"
 static int test_strcpy(void)
 {
 	char src[] = "sticksandstones";
@@ -59,7 +59,6 @@ static int test_strncpy_cut(void)
 	dst[10] = 'Z';
 	strncpy(dst, src, 10);
 	len = strlen(dst);
-
 	return len == 11;
 }
 
