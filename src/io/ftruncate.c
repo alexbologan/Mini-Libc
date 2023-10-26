@@ -7,11 +7,13 @@
 
 int ftruncate(int fd, off_t length)
 {
+	// Call the system call for ftruncate
 	int ret = syscall(__NR_ftruncate, fd, length);
 
+	// Check if the return value is negative, indicating an error
 	if (ret < 0) {
-		errno = -ret;
-		return -1;
+		errno = -ret; // Set errno to an error given by the syscall
+		return -1; // Return -1 to signal failure
 	}
 
 	return ret;

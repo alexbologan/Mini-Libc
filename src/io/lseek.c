@@ -7,11 +7,13 @@
 
 off_t lseek(int fd, off_t offset, int whence)
 {
+	// Call the system call for lseek
 	int ret = syscall(__NR_lseek, fd, offset, whence);
 
+	// Check if the return value is negative, indicating an error
 	if (ret < 0) {
-		errno = -ret;
-		return -1;
+		errno = -ret; // Set errno to an error given by the syscall
+		return -1; // Return -1 to signal failure
 	}
 
 	return ret;

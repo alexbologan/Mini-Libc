@@ -5,13 +5,11 @@
 extern "C" {
 #endif
 
+// Define a structure to represent time intervals
 struct timespec {
-    long  tv_sec;
-    long    tv_nsec;
+    long  tv_sec; // Seconds
+    long  tv_nsec;  // Nanoseconds
 };
-
-struct timespec  it_interval;
-struct timespec  it_value;
 
 int nanosleep(const struct timespec *req, struct timespec *rem);
 
